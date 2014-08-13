@@ -68,7 +68,7 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
             onOpen          : '&',
 			
 			// added by acutus. A callback for the actual click-event, so that user 
-			// can hook to that. onItemClick should be onSelect or something tbg, 
+			// can hook to that. onItemClick should be onSelect or something tbh, 
 			// as it doesn't know anything about the actual click. 
 			afterItemClick	: '&' 
         },
@@ -427,8 +427,7 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
                 $scope.removeFocusStyle( prevTabIndex );
                 $scope.setFocusStyle( $scope.tabIndex );
 				
-				
-				$scope.afterItemClick(e, $scope.selectedItem);
+				$scope.afterItemClick( { event: e, item: $scope.clickedItem } );
             }     
 
             // update $scope.selectedItems
