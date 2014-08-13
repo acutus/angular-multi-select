@@ -65,7 +65,12 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
             // callbacks
             onClose         : '&',            
             onItemClick     : '&',
-            onOpen          : '&'                        
+            onOpen          : '&',
+			
+			// added by acutus. A callback for the actual click-event, so that user 
+			// can hook to that. onItemClick should be onSelect or something tbg, 
+			// as it doesn't know anything about the actual click. 
+			afterItemClick	: '&' 
         },
 
         template: 
@@ -421,6 +426,9 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
                 // set & remove CSS style
                 $scope.removeFocusStyle( prevTabIndex );
                 $scope.setFocusStyle( $scope.tabIndex );
+				
+				
+				$scope.afterItemClick(e, $scope.selectedItem);
             }     
 
             // update $scope.selectedItems
@@ -859,7 +867,7 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
                     $scope.prepareIndex();                                                
                     $scope.refreshSelectedItems();                                   
                     $scope.refreshOutputModel();                
-                    $scope.refreshButton();                                                                                                                 
+                    $scope.refreshButton(); 
                 }
             });            
 
