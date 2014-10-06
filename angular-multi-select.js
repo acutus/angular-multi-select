@@ -130,6 +130,12 @@ angular.module( 'multi-select', ['ng'] ).directive( 'multiSelect' , [ '$sce', '$
             helperItems             = [];
             helperItemsLength       = 0;
 
+			// let's watch the defaultLabel for changes, in case it changes due to lets say.. translations.
+			$scope.$watch('defaultLabel', function(){
+                $scope.refreshButton();
+            });
+
+			
             // If user specify a height, call this function
             $scope.setHeight = function() {
                 if ( typeof $scope.maxHeight !== 'undefined' ) {
